@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { useState } from 'react';
+import Dialog from './components/Dialog';
+import Profile from './components/Profile';
+
+
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+
+  const openModal = (isModalParam) => {
+    setShowModal(true);
+    if (isModalParam) {
+      setIsModal(() => true)
+    } else {
+      setIsModal(() => false)
+    }
+  };
+
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => openModal(true)}>Open Modal</button>
+      <button onClick={() => openModal(false)}>Open Dialog</button>
+      {showModal && (
+
+        <>
+          {isModal && <div className="overlay" onClick={closeModal}></div>}
+          <Dialog
+            title="Are you sure?"
+            content={<Profile></Profile>}
+            onYes={() => {
+              console.log('Yes clicked');
+              closeModal();
+            }}
+            onNo={() => {
+              console.log('No clicked');
+              closeModal();
+            }}
+            onClose={closeModal}
+            isModal={isModal}
+          />
+        </>
+      )}
     </div>
   );
-}
+};
+
 
 export default App;
+
