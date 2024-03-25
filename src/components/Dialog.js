@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-// import '../index.css'; // Import CSS file for styling
 
-// Generic Dialog Component
 const Dialog = ({ title, content, onYes, onNo, onClose, isModal }) => {
     const dialogClasses = isModal ? 'dialog modal' : 'dialog';
 
